@@ -1,0 +1,23 @@
+{
+  "name": "@kitaitimakoto/media-fragment",
+  "version": "1.0.0",
+  "description": "Media Fragments URI implementation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/KitaitiMakoto/media-fragments.git"
+  },
+  "keywords": [
+    "URI",
+    "URL"
+  ],
+  "author": "Kitaiti Makoto",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://gitlab.com/KitaitiMakoto/media-fragments/issues"
+  },
+  "homepage": "https://gitlab.com/KitaitiMakoto/media-fragments#readme"
+}
