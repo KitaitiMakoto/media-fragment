@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://gitlab.com/KitaitiMakoto/media-fragments/issues"
   },
-  "homepage": "https://gitlab.com/KitaitiMakoto/media-fragments#readme"
+  "homepage": "https://gitlab.com/KitaitiMakoto/media-fragments#readme",
+  "devDependencies": {
+    "jest": "^24.8.0"
+  }
 }
