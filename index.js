@@ -28,6 +28,10 @@ class MediaFragment {
     return values;
   }
 
+  entries() {
+    return this._pairs;
+  }
+
   append(name, value) {
     this._pairs.push([name, value]);
   }
