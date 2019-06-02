@@ -14,8 +14,10 @@ class MediaFragment {
   }
 
   get(name) {
-    for (let pair of this._pairs) {
-      if (pair[0] === name) return pair[1]
+    const l = this._pairs.length;
+    for (let i = l - 1; i >= 0; i--) {
+      let [n, v] = this._pairs[i];
+      if (n === name) return v;
     }
     return null;
   }

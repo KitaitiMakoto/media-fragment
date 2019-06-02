@@ -20,7 +20,7 @@ test('append', () => {
   mf.append('t', '10,20');
   expect(mf.get('t')).toBe('10,20');
   mf.append('t', 'npt:10');
-  expect(mf.get('t')).toBe('10,20');
+  expect(mf.get('t')).toBe('npt:10');
   expect(mf.getAll('t')).toEqual(['10,20', 'npt:10']);
   expect(decodeURIComponent(mf.toString())).toBe('t=10,20&t=npt:10');
   expect(mf.entries()).toEqual([['t', '10,20'], ['t', 'npt:10']]);
