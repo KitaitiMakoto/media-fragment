@@ -142,15 +142,27 @@ class MediaFragmentSpatial {
   }
 
   _parseString(string) {
-    let [_, __, unit, x, y, w, h] = string.match(/^((pixel|percent):)?(\d+),(\d+),(\d+),(\d+)$/);
-    if (x === null) {
-      throw new Error('invalid format');
+    let x, y, w, h;
+    let _, _u, _xfrac, _yfrac, _wfrac, _hfrac;
+    let parser;
+    let m = string.match(/^(pixel:)?(\d+),(\d+),(\d+),(\d+)$/);
+    if (m === null) {
+      m = string.match(/^percent:(\d+(\.\d+)?),(\d+(\.\d+)?),(\d+(\.\d+)?),(\d+(\.\d+)?)$/);
+      if (m === null) {
+        throw new Error('invalid format');
+      }
+      [_, x, _xfrac, y, _yfrac, w, _wfrac, h, _hfrac] = m;
+      this._unit = 'percent';
+      parser = parseFloat;
+    } else {
+      [_, _u, x, y, w, h] = m;
+      this._unit = 'pixel';
+      parser = parseInt;
     }
-    this._unit = unit || 'pixel';
-    this._x = Number.parseInt(x);
-    this._y = Number.parseInt(y);
-    this._w = Number.parseInt(w);
-    this._h = Number.parseInt(h);
+    this._x = parser(x);
+    this._y = parser(y);
+    this._w = parser(w);
+    this._h = parser(h);
   }
 }
 

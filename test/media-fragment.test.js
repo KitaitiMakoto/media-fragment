@@ -43,6 +43,14 @@ describe('spatial', () => {
     expect(mf.y).toBe(120);
     expect(mf.w).toBe(320);
     expect(mf.h).toBe(240);
+
+    let mf2 = new MediaFragmentSpatial('percent:25.3,25.5,50.456,50');
+    expect(mf2.unit).toBe('percent');
+    expect(mf2.x).toBe(25.3);
+    expect(mf2.y).toBe(25.5);
+    expect(mf2.w).toBe(50.456);
+    expect(mf2.h).toBe(50.0);
+    expect(mf2.toString()).toBe('percent:25.3,25.5,50.456,50');
   });
 
   test('setter', () => {
