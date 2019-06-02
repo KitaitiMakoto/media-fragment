@@ -7,8 +7,8 @@ class MediaFragment {
   }
 
   has(name) {
-    for (let pair of this._pairs) {
-      if (pair[0] === name) return true;
+    for (let [n, _] of this._pairs) {
+      if (n === name) return true;
     }
     return false;
   }
@@ -24,8 +24,8 @@ class MediaFragment {
 
   getAll(name) {
     let values = [];
-    for (let pair of this._pairs) {
-      if (pair[0] === name) values.push(pair[1]); 
+    for (let [n, v] of this._pairs) {
+      if (n === name) values.push(v);
     }
     return values;
   }
