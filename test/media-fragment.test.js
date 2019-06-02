@@ -61,4 +61,48 @@ describe('spatial', () => {
     mf.h = 240;
     expect(mf.toString()).toBe('pixel:160,120,320,240');
   });
+
+  test('resolve pixel', () => {
+    let mf = new MediaFragmentSpatial('160,120,320,240');
+
+    let w1 = 500;
+    let h1 = 400;
+    expect(mf.resolve(w1, h1)).toEqual({
+      x: 160,
+      y: 120,
+      w: 320,
+      h: 240
+    });
+
+    let w2 = 300;
+    let h2 = 300;
+    expect(mf.resolve(w2, h2)).toEqual({
+      x: 160,
+      y: 120,
+      w: 140,
+      h: 180
+    });
+
+    let w3 = 100;
+    let h3 = 100;
+    expect(mf.resolve(w3, h3)).toEqual({
+      x: 100,
+      y: 100,
+      w: 0,
+      h: 0
+    });
+  });
+
+  test('resolve percent', () => {
+    let mf = new MediaFragmentSpatial('percent:25.3,25.5,50.456,50');
+    let width = 1260;
+    let height = 1476;
+    let res = mf.resolve(width, height);
+    expect(res).toEqual({
+      x: Math.floor(width * 25.3 / 100),
+      y: Math.floor(height * 25.5 / 100),
+      w: Math.ceil(width * 50.456 / 100),
+      h: Math.ceil(height * 50 / 100)
+    });
+  });
 });

@@ -137,6 +137,23 @@ class MediaFragmentSpatial {
     return this._h = h;
   }
 
+  resolve(sourceWidth, sourceHeight) {
+    if (this._unit === 'pixel') {
+      let x = Math.min(this._x, sourceWidth);
+      let y = Math.min(this._y, sourceHeight);
+      let w = (x + this._w > sourceWidth) ? sourceWidth - x : this._w;
+      let h = (y + this._h > sourceHeight) ? sourceHeight - y : this._h;
+      return {x, y, w, h}
+    } else {
+      return {
+        x: Math.floor(sourceWidth * Math.min(this._x, 100) / 100),
+        y: Math.floor(sourceHeight * Math.min(this._y, 100) / 100),
+        w: Math.ceil(sourceWidth * Math.min(this._w, 100) / 100),
+        h: Math.ceil(sourceHeight * Math.min(this._h, 100) / 100)
+      };
+    }
+  }
+
   toString() {
     return this._unit + ':' + [this._x, this._y, this._w, this._h].join(',');
   }
