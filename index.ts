@@ -106,6 +106,9 @@ class MediaFragmentSpatial {
   }
 
   set unit(unit: Unit) {
+    if (unit !== 'pixel' && unit !== 'percent') {
+      throw new Error('unit must be "pixel" or "percent"');
+    }
     this.#unit = unit;
   }
 
