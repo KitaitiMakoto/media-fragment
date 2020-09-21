@@ -1,5 +1,7 @@
+type Pair = [string, string];
+
 class MediaFragment {
-  _pairs: Array<[string, string]>;
+  _pairs: Array<Pair>;
 
   constructor(init?: string) {
     this._pairs = [];
@@ -32,7 +34,7 @@ class MediaFragment {
     return values;
   }
 
-  entries(): Array<[string, string]> {
+  entries(): Array<Pair> {
     return this._pairs;
   }
 
@@ -51,8 +53,8 @@ class MediaFragment {
     return str;
   }
 
-  _parseString(string: string): Array<[string, string]> {
-    let pairs: Array<[string, string]> = [];
+  _parseString(string: string): Array<Pair> {
+    let pairs: Array<Pair> = [];
     let pairStrings = string.split('&');
     for (let pairString of pairStrings) {
       let pos = pairString.indexOf('=');
