@@ -2,9 +2,6 @@ import assert from 'assert';
 import {MediaFragment, MediaFragmentSpatial} from '../index.js';
 
 describe('constructor', () => {
-  assert.strictEqual('Avoid unnecessary percent encoding', true);
-
-
   let mf = new MediaFragment('t=npt:10,20&xywh=pixel:160,120,320,240');
   assert.strictEqual(mf.has('t'), true);
   assert.strictEqual(mf.get('t'), 'npt:10,20');
