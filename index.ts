@@ -1,21 +1,21 @@
 class MediaFragment {
   _pairs: Array<[string, string]>;
 
-  constructor(init) {
+  constructor(init?: string) {
     this._pairs = [];
     if (typeof init === 'string') {
       this._pairs = this._parseString(init);
     }
   }
 
-  has(name) {
+  has(name: string): boolean {
     for (let [n, _] of this._pairs) {
       if (n === name) return true;
     }
     return false;
   }
 
-  get(name) {
+  get(name: string): string | null {
     const l = this._pairs.length;
     for (let i = l - 1; i >= 0; i--) {
       let [n, v] = this._pairs[i];
@@ -24,7 +24,7 @@ class MediaFragment {
     return null;
   }
 
-  getAll(name) {
+  getAll(name: string): Array<string> {
     let values = [];
     for (let [n, v] of this._pairs) {
       if (n === name) values.push(v);
@@ -32,15 +32,15 @@ class MediaFragment {
     return values;
   }
 
-  entries() {
+  entries(): Array<[string, string]> {
     return this._pairs;
   }
 
-  append(name, value) {
+  append(name: string, value: string): void {
     this._pairs.push([name, value]);
   }
 
-  toString() {
+  toString(): string {
     let str = '';
     let first = true;
     for (let [name, value] of this._pairs) {
@@ -51,8 +51,8 @@ class MediaFragment {
     return str;
   }
 
-  _parseString(string) {
-    let pairs = [];
+  _parseString(string: string): Array<[string, string]> {
+    let pairs: Array<[string, string]> = [];
     let pairStrings = string.split('&');
     for (let pairString of pairStrings) {
       let pos = pairString.indexOf('=');
@@ -76,13 +76,13 @@ class MediaFragment {
 }
 
 class MediaFragmentSpatial {
-  _unit: String;
+  _unit: string;
   _x: number;
   _y: number;
   _w: number;
   _h: number;
 
-  constructor(value) {
+  constructor(value?: string) {
     this._unit = 'pixel';
     this._x = this._y = this._w = this._h = 0;
     if (typeof value === 'string') {
@@ -90,62 +90,62 @@ class MediaFragmentSpatial {
     }
   }
 
-  get unit() {
+  get unit(): string {
     return this._unit;
   }
 
-  set unit(unit) {
+  set unit(unit: string) {
     if (unit !== 'pixel' && unit !== 'percent') {
       throw new Error('unit must be "pixel" or "percent"');
     }
     this._unit = unit;
   }
 
-  get x() {
+  get x(): number {
     return this._x;
   }
 
-  set x(x) {
+  set x(x: number) {
     if (! Number.isInteger(x)) {
       throw new Error('x must be an Integer');
     }
     this._x = x;
   }
 
-  get y() {
+  get y(): number {
     return this._y;
   }
 
-  set y(y) {
+  set y(y: number) {
     if (! Number.isInteger(y)) {
       throw new Error('y must be an Integer');
     }
     this._y = y;
   }
 
-  get w() {
+  get w(): number {
     return this._w;
   }
 
-  set w(w) {
+  set w(w: number) {
     if (! Number.isInteger(w)) {
       throw new Error('w must be an Integer');
     }
     this._w = w;
   }
 
-  get h() {
+  get h(): number {
     return this._h;
   }
 
-  set h(h) {
+  set h(h: number) {
     if (! Number.isInteger(h)) {
       throw new Error('h must be an Integer');
     }
     this._h = h;
   }
 
-  resolve(sourceWidth, sourceHeight) {
+  resolve(sourceWidth: number, sourceHeight: number): object {
     if (this._unit === 'pixel') {
       let x = Math.min(this._x, sourceWidth);
       let y = Math.min(this._y, sourceHeight);
@@ -162,11 +162,11 @@ class MediaFragmentSpatial {
     }
   }
 
-  toString() {
+  toString(): string {
     return this._unit + ':' + [this._x, this._y, this._w, this._h].join(',');
   }
 
-  _parseString(string) {
+  _parseString(string: string): void {
     let x, y, w, h;
     let _, _u, _xfrac, _yfrac, _wfrac, _hfrac;
     let parser;

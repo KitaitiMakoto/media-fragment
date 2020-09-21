@@ -4,6 +4,7 @@
   "description": "Media Fragments URI implementation",
   "type": "module",
   "main": "index.js",
+  "types": "./index.d.ts",
   "scripts": {
     "test": "npm run build && mocha",
     "build": "tsc"
