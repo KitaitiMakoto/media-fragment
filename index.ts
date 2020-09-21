@@ -1,26 +1,26 @@
 type Pair = [string, string];
 
 class MediaFragment {
-  _pairs: Array<Pair>;
+  #pairs: Array<Pair>;
 
   constructor(init?: string) {
-    this._pairs = [];
+    this.#pairs = [];
     if (typeof init === 'string') {
-      this._pairs = this._parseString(init);
+      this.#pairs = this._parseString(init);
     }
   }
 
   has(name: string): boolean {
-    for (let [n, _] of this._pairs) {
+    for (let [n, _] of this.#pairs) {
       if (n === name) return true;
     }
     return false;
   }
 
   get(name: string): string | null {
-    const l = this._pairs.length;
+    const l = this.#pairs.length;
     for (let i = l - 1; i >= 0; i--) {
-      let [n, v] = this._pairs[i];
+      let [n, v] = this.#pairs[i];
       if (n === name) return v;
     }
     return null;
@@ -28,24 +28,24 @@ class MediaFragment {
 
   getAll(name: string): Array<string> {
     let values = [];
-    for (let [n, v] of this._pairs) {
+    for (let [n, v] of this.#pairs) {
       if (n === name) values.push(v);
     }
     return values;
   }
 
   entries(): Array<Pair> {
-    return this._pairs;
+    return this.#pairs;
   }
 
   append(name: string, value: string): void {
-    this._pairs.push([name, value]);
+    this.#pairs.push([name, value]);
   }
 
   toString(): string {
     let str = '';
     let first = true;
-    for (let [name, value] of this._pairs) {
+    for (let [name, value] of this.#pairs) {
       if (! first) str += '&';
       if (first) first = false;
       str += encodeURIComponent(name) + '=' + encodeURIComponent(value);
