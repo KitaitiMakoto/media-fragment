@@ -1,73 +1,74 @@
+const assert = require('assert').strict;
 const {MediaFragment, MediaFragmentSpatial} = require('../index');
 
-test('constructor', () => {
+describe('constructor', () => {
   let mf = new MediaFragment('t=npt:10,20&xywh=pixel:160,120,320,240');
-  expect(mf.has('t')).toBeTruthy();
-  expect(mf.get('t')).toBe('npt:10,20');
-  expect(mf.has('xywh')).toBeTruthy();
-  expect(mf.get('xywh')).toBe('pixel:160,120,320,240');
-  expect(mf.has('nothing')).toBeFalsy();
-  expect(mf.get('nothing')).toBeNull();
-  expect(decodeURIComponent(mf.toString())).toBe('t=npt:10,20&xywh=pixel:160,120,320,240');
+  assert.strictEqual(mf.has('t'), true);
+  assert.strictEqual(mf.get('t'), 'npt:10,20');
+  assert.strictEqual(mf.has('xywh'), true);
+  assert.strictEqual(mf.get('xywh'), 'pixel:160,120,320,240');
+  assert.strictEqual(mf.has('nothing'), false);
+  assert.strictEqual(mf.get('nothing'), null);
+  assert.strictEqual(decodeURIComponent(mf.toString()), 't=npt:10,20&xywh=pixel:160,120,320,240');
 
-  expect(decodeURIComponent(new MediaFragment('t=npt:10,20&xywh=pixel:160,120,320,240&t=10,20')).toString()).toBe('t=npt:10,20&xywh=pixel:160,120,320,240&t=10,20');
+  assert.strictEqual(decodeURIComponent(new MediaFragment('t=npt:10,20&xywh=pixel:160,120,320,240&t=10,20')).toString(), 't=npt:10,20&xywh=pixel:160,120,320,240&t=10,20');
 
-  expect(decodeURIComponent(new MediaFragment('id=%xy&t=1')).toString()).toBe('t=1');
+  assert.strictEqual(decodeURIComponent(new MediaFragment('id=%xy&t=1')).toString(), 't=1');
 });
 
-test('append', () => {
+describe('append', () => {
   let mf = new MediaFragment();
   mf.append('t', '10,20');
-  expect(mf.get('t')).toBe('10,20');
+  assert.strictEqual(mf.get('t'), '10,20');
   mf.append('t', 'npt:10');
-  expect(mf.get('t')).toBe('npt:10');
-  expect(mf.getAll('t')).toEqual(['10,20', 'npt:10']);
-  expect(decodeURIComponent(mf.toString())).toBe('t=10,20&t=npt:10');
-  expect(mf.entries()).toEqual([['t', '10,20'], ['t', 'npt:10']]);
+  assert.strictEqual(mf.get('t'), 'npt:10');
+  assert.deepStrictEqual(mf.getAll('t'), ['10,20', 'npt:10']);
+  assert.strictEqual(decodeURIComponent(mf.toString()), 't=10,20&t=npt:10');
+  assert.deepStrictEqual(mf.entries(), [['t', '10,20'], ['t', 'npt:10']]);
 });
 
 describe('spatial', () => {
-  test('default', () => {
+  describe('default', () => {
     let mf = new MediaFragmentSpatial();
-    expect(mf.unit).toBe('pixel');
-    expect(mf.x).toBe(0);
-    expect(mf.y).toBe(0);
-    expect(mf.w).toBe(0);
-    expect(mf.h).toBe(0);
+    assert.strictEqual(mf.unit, 'pixel');
+    assert.strictEqual(mf.x, 0);
+    assert.strictEqual(mf.y, 0);
+    assert.strictEqual(mf.w, 0);
+    assert.strictEqual(mf.h, 0);
   });
 
-  test('getter', () => {
+  describe('getter', () => {
     let mf = new MediaFragmentSpatial('160,120,320,240');
-    expect(mf.unit).toBe('pixel');
-    expect(mf.x).toBe(160);
-    expect(mf.y).toBe(120);
-    expect(mf.w).toBe(320);
-    expect(mf.h).toBe(240);
+    assert.strictEqual(mf.unit, 'pixel');
+    assert.strictEqual(mf.x, 160);
+    assert.strictEqual(mf.y, 120);
+    assert.strictEqual(mf.w, 320);
+    assert.strictEqual(mf.h, 240);
 
     let mf2 = new MediaFragmentSpatial('percent:25.3,25.5,50.456,50');
-    expect(mf2.unit).toBe('percent');
-    expect(mf2.x).toBe(25.3);
-    expect(mf2.y).toBe(25.5);
-    expect(mf2.w).toBe(50.456);
-    expect(mf2.h).toBe(50.0);
-    expect(mf2.toString()).toBe('percent:25.3,25.5,50.456,50');
+    assert.strictEqual(mf2.unit, 'percent');
+    assert.strictEqual(mf2.x, 25.3);
+    assert.strictEqual(mf2.y, 25.5);
+    assert.strictEqual(mf2.w, 50.456);
+    assert.strictEqual(mf2.h, 50.0);
+    assert.strictEqual(mf2.toString(), 'percent:25.3,25.5,50.456,50');
   });
 
-  test('setter', () => {
+  describe('setter', () => {
     let mf = new MediaFragmentSpatial();
     mf.x = 160;
     mf.y = 120;
     mf.w = 320;
     mf.h = 240;
-    expect(mf.toString()).toBe('pixel:160,120,320,240');
+    assert.strictEqual(mf.toString(), 'pixel:160,120,320,240');
   });
 
-  test('resolve pixel', () => {
+  describe('resolve pixel', () => {
     let mf = new MediaFragmentSpatial('160,120,320,240');
 
     let w1 = 500;
     let h1 = 400;
-    expect(mf.resolve(w1, h1)).toEqual({
+    assert.deepStrictEqual(mf.resolve(w1, h1), {
       x: 160,
       y: 120,
       w: 320,
@@ -76,7 +77,7 @@ describe('spatial', () => {
 
     let w2 = 300;
     let h2 = 300;
-    expect(mf.resolve(w2, h2)).toEqual({
+    assert.deepStrictEqual(mf.resolve(w2, h2), {
       x: 160,
       y: 120,
       w: 140,
@@ -85,7 +86,7 @@ describe('spatial', () => {
 
     let w3 = 100;
     let h3 = 100;
-    expect(mf.resolve(w3, h3)).toEqual({
+    assert.deepStrictEqual(mf.resolve(w3, h3), {
       x: 100,
       y: 100,
       w: 0,
@@ -93,12 +94,12 @@ describe('spatial', () => {
     });
   });
 
-  test('resolve percent', () => {
+  describe('resolve percent', () => {
     let mf = new MediaFragmentSpatial('percent:25.3,25.5,50.456,50');
     let width = 1260;
     let height = 1476;
     let res = mf.resolve(width, height);
-    expect(res).toEqual({
+    assert.deepStrictEqual(res, {
       x: Math.floor(width * 25.3 / 100),
       y: Math.floor(height * 25.5 / 100),
       w: Math.ceil(width * 50.456 / 100),
