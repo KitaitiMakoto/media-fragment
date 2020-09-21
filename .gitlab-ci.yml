@@ -16,7 +16,7 @@ pages:
     - test
   script:
     - npm run doc
-    - mv doc public
+    - mv docs public
   artifacts:
     paths:
       - public
