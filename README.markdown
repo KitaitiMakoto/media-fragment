@@ -57,8 +57,9 @@ Media Fragment provides `index.js` file as an ES module. You can use it in both 
 
 ### Node.js module ###
 
+`index.mjs`:
+
 ```javascript
-// index.mjs
 import {MediaFragment, MediaFragmentSpatial} from '@kitaitimakoto/media-fragment';
 
 let mf = new MediaFragment('t=npt:10,20&xywh=pixel:160,120,320,240');
@@ -77,6 +78,8 @@ let result = mfs2.resolve(width, height);
 console.log(result);
 ```
 
+Run the script:
+
     % node index.mjs
     t=npt%3A10%2C20&xywh=pixel%3A160%2C120%2C320%2C240
     160
@@ -87,8 +90,9 @@ console.log(result);
 
 ### TypeScript ###
 
+`index.ts`:
+
 ```typescript
-// index.ts
 import {MediaFragment, MediaFragmentSpatial} from '@kitaitimakoto/media-fragment';
 
 let mf = new MediaFragment('t=npt:10,20&xywh=pixel:160,120,320,240');
@@ -110,8 +114,9 @@ let result = mfs2.resolve(width, height);
 console.log(result);
 ```
 
+`tsconfig.json`:
+
 ```json
-// tsconfig.json
 {
   "compilerOptions": {
     "module": "ES2020",
@@ -124,5 +129,12 @@ console.log(result);
 }
 ```
 
+Run the script:
+
     % tsc && mv index.js index.mjs && node index.mjs
     { x: 318, y: 376, w: 636, h: 738 }
+
+Documentation
+-------------
+
+Visit https://kitaitimakoto.gitlab.io/media-fragment/
