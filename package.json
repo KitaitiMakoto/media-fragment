@@ -4,7 +4,7 @@
   "description": "Media Fragments URI implementation",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
