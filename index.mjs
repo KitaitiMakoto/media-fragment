@@ -183,5 +183,4 @@ class MediaFragmentSpatial {
   }
 }
 
-exports.MediaFragment = MediaFragment;
-exports.MediaFragmentSpatial = MediaFragmentSpatial;
+export {MediaFragment, MediaFragmentSpatial};
