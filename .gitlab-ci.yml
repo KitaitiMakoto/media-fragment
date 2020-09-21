@@ -1,0 +1,28 @@
+before_script:
+  - node --version
+  - npm --version
+  - npm install
+test:
+  image: node
+  script: npm test
+  cache:
+    key: node
+    paths:
+      - node_modules
+pages:
+  stage: deploy
+  image: node
+  dependencies:
+    - test
+  script:
+    - npm run doc
+    - mv doc public
+  artifacts:
+    paths:
+      - public
+  only:
+    - master
+  cache:
+    key: node
+    paths:
+      - node_modules
