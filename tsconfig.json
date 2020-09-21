@@ -8,7 +8,9 @@
     },
     "sourceMap": true,
     "noImplicitAny": true,
-    "noImplicitThis": true
+    "noImplicitThis": true,
+    "declaration": true,
+    "declarationMap": true
   },
   "files": [
     "index.ts"
