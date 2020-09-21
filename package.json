@@ -21,6 +21,6 @@
   },
   "homepage": "https://gitlab.com/KitaitiMakoto/media-fragments#readme",
   "devDependencies": {
-    "jest": "^24.8.0"
+    "jest": "^24.9.0"
   }
 }
