@@ -1,4 +1,6 @@
 class MediaFragment {
+  _pairs: Array<[string, string]>;
+
   constructor(init) {
     this._pairs = [];
     if (typeof init === 'string') {
@@ -74,6 +76,12 @@ class MediaFragment {
 }
 
 class MediaFragmentSpatial {
+  _unit: String;
+  _x: number;
+  _y: number;
+  _w: number;
+  _h: number;
+
   constructor(value) {
     this._unit = 'pixel';
     this._x = this._y = this._w = this._h = 0;
@@ -90,7 +98,7 @@ class MediaFragmentSpatial {
     if (unit !== 'pixel' && unit !== 'percent') {
       throw new Error('unit must be "pixel" or "percent"');
     }
-    return this._unit = unit;
+    this._unit = unit;
   }
 
   get x() {
@@ -101,7 +109,7 @@ class MediaFragmentSpatial {
     if (! Number.isInteger(x)) {
       throw new Error('x must be an Integer');
     }
-    return this._x = x;
+    this._x = x;
   }
 
   get y() {
@@ -112,7 +120,7 @@ class MediaFragmentSpatial {
     if (! Number.isInteger(y)) {
       throw new Error('y must be an Integer');
     }
-    return this._y = y;
+    this._y = y;
   }
 
   get w() {
@@ -123,7 +131,7 @@ class MediaFragmentSpatial {
     if (! Number.isInteger(w)) {
       throw new Error('w must be an Integer');
     }
-    return this._w = w;
+    this._w = w;
   }
 
   get h() {
@@ -134,7 +142,7 @@ class MediaFragmentSpatial {
     if (! Number.isInteger(h)) {
       throw new Error('h must be an Integer');
     }
-    return this._h = h;
+    this._h = h;
   }
 
   resolve(sourceWidth, sourceHeight) {
