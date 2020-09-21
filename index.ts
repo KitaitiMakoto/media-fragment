@@ -85,94 +85,94 @@ interface SpatialDimension {
 }
 
 class MediaFragmentSpatial {
-  _unit: string;
-  _x: number;
-  _y: number;
-  _w: number;
-  _h: number;
+  #unit: string;
+  #x: number;
+  #y: number;
+  #w: number;
+  #h: number;
 
   constructor(value?: string) {
-    this._unit = 'pixel';
-    this._x = this._y = this._w = this._h = 0;
+    this.#unit = 'pixel';
+    this.#x = this.#y = this.#w = this.#h = 0;
     if (typeof value === 'string') {
       this._parseString(value);
     }
   }
 
   get unit(): string {
-    return this._unit;
+    return this.#unit;
   }
 
   set unit(unit: string) {
     if (unit !== 'pixel' && unit !== 'percent') {
       throw new Error('unit must be "pixel" or "percent"');
     }
-    this._unit = unit;
+    this.#unit = unit;
   }
 
   get x(): number {
-    return this._x;
+    return this.#x;
   }
 
   set x(x: number) {
     if (! Number.isInteger(x)) {
       throw new Error('x must be an Integer');
     }
-    this._x = x;
+    this.#x = x;
   }
 
   get y(): number {
-    return this._y;
+    return this.#y;
   }
 
   set y(y: number) {
     if (! Number.isInteger(y)) {
       throw new Error('y must be an Integer');
     }
-    this._y = y;
+    this.#y = y;
   }
 
   get w(): number {
-    return this._w;
+    return this.#w;
   }
 
   set w(w: number) {
     if (! Number.isInteger(w)) {
       throw new Error('w must be an Integer');
     }
-    this._w = w;
+    this.#w = w;
   }
 
   get h(): number {
-    return this._h;
+    return this.#h;
   }
 
   set h(h: number) {
     if (! Number.isInteger(h)) {
       throw new Error('h must be an Integer');
     }
-    this._h = h;
+    this.#h = h;
   }
 
   resolve(sourceWidth: number, sourceHeight: number): SpatialDimension {
-    if (this._unit === 'pixel') {
-      let x = Math.min(this._x, sourceWidth);
-      let y = Math.min(this._y, sourceHeight);
-      let w = (x + this._w > sourceWidth) ? sourceWidth - x : this._w;
-      let h = (y + this._h > sourceHeight) ? sourceHeight - y : this._h;
+    if (this.#unit === 'pixel') {
+      let x = Math.min(this.#x, sourceWidth);
+      let y = Math.min(this.#y, sourceHeight);
+      let w = (x + this.#w > sourceWidth) ? sourceWidth - x : this.#w;
+      let h = (y + this.#h > sourceHeight) ? sourceHeight - y : this.#h;
       return {x, y, w, h}
     } else {
       return {
-        x: Math.floor(sourceWidth * Math.min(this._x, 100) / 100),
-        y: Math.floor(sourceHeight * Math.min(this._y, 100) / 100),
-        w: Math.ceil(sourceWidth * Math.min(this._w, 100) / 100),
-        h: Math.ceil(sourceHeight * Math.min(this._h, 100) / 100)
+        x: Math.floor(sourceWidth * Math.min(this.#x, 100) / 100),
+        y: Math.floor(sourceHeight * Math.min(this.#y, 100) / 100),
+        w: Math.ceil(sourceWidth * Math.min(this.#w, 100) / 100),
+        h: Math.ceil(sourceHeight * Math.min(this.#h, 100) / 100)
       };
     }
   }
 
   toString(): string {
-    return this._unit + ':' + [this._x, this._y, this._w, this._h].join(',');
+    return this.#unit + ':' + [this.#x, this.#y, this.#w, this.#h].join(',');
   }
 
   _parseString(string: string): void {
@@ -186,17 +186,17 @@ class MediaFragmentSpatial {
         throw new Error('invalid format');
       }
       [_, x, _xfrac, y, _yfrac, w, _wfrac, h, _hfrac] = m;
-      this._unit = 'percent';
+      this.#unit = 'percent';
       parser = parseFloat;
     } else {
       [_, _u, x, y, w, h] = m;
-      this._unit = 'pixel';
+      this.#unit = 'pixel';
       parser = parseInt;
     }
-    this._x = parser(x);
-    this._y = parser(y);
-    this._w = parser(w);
-    this._h = parser(h);
+    this.#x = parser(x);
+    this.#y = parser(y);
+    this.#w = parser(w);
+    this.#h = parser(h);
   }
 }
 
