@@ -1,5 +1,5 @@
 import assert from 'assert';
-import {MediaFragment, MediaFragmentSpatial} from '../index.mjs';
+import {MediaFragment, MediaFragmentSpatial} from '../index.js';
 
 describe('constructor', () => {
   let mf = new MediaFragment('t=npt:10,20&xywh=pixel:160,120,320,240');

@@ -2,7 +2,8 @@
   "name": "@kitaitimakoto/media-fragment",
   "version": "1.0.0",
   "description": "Media Fragments URI implementation",
-  "main": "index.mjs",
+  "type": "module",
+  "main": "index.js",
   "scripts": {
     "test": "mocha"
   },
