@@ -93,6 +93,9 @@ class MediaFragmentSpatial {
   #w: number;
   #h: number;
 
+  /**
+   * @throws Will throw an error if the argument'format is not valid.
+   */
   constructor(value?: string) {
     this.#unit = 'pixel';
     this.#x = this.#y = this.#w = this.#h = 0;
@@ -105,6 +108,9 @@ class MediaFragmentSpatial {
     return this.#unit;
   }
 
+  /**
+   * @throws Will throw an error if the argument is neither 'pixel' nor 'percent'.
+   */
   set unit(unit: Unit) {
     if (unit !== 'pixel' && unit !== 'percent') {
       throw new Error('unit must be "pixel" or "percent"');
@@ -116,6 +122,9 @@ class MediaFragmentSpatial {
     return this.#x;
   }
 
+  /**
+   * @throws Will throw an error if the argument is not an integer.
+   */
   set x(x: number) {
     if (! Number.isInteger(x)) {
       throw new Error('x must be an Integer');
@@ -127,6 +136,9 @@ class MediaFragmentSpatial {
     return this.#y;
   }
 
+  /**
+   * @throws Will throw an error if the argument is not an integer.
+   */
   set y(y: number) {
     if (! Number.isInteger(y)) {
       throw new Error('y must be an Integer');
@@ -138,6 +150,9 @@ class MediaFragmentSpatial {
     return this.#w;
   }
 
+  /**
+   * @throws Will throw an error if the argument is not an integer.
+   */
   set w(w: number) {
     if (! Number.isInteger(w)) {
       throw new Error('w must be an Integer');
@@ -149,6 +164,9 @@ class MediaFragmentSpatial {
     return this.#h;
   }
 
+  /**
+   * @throws Will throw an error if the argument is not an integer.
+   */
   set h(h: number) {
     if (! Number.isInteger(h)) {
       throw new Error('h must be an Integer');
