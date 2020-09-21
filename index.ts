@@ -84,8 +84,10 @@ interface SpatialDimension {
   h: number,
 }
 
+type Unit = 'pixel' | 'percent';
+
 class MediaFragmentSpatial {
-  #unit: string;
+  #unit: Unit;
   #x: number;
   #y: number;
   #w: number;
@@ -99,14 +101,11 @@ class MediaFragmentSpatial {
     }
   }
 
-  get unit(): string {
+  get unit(): Unit {
     return this.#unit;
   }
 
-  set unit(unit: string) {
-    if (unit !== 'pixel' && unit !== 'percent') {
-      throw new Error('unit must be "pixel" or "percent"');
-    }
+  set unit(unit: Unit) {
     this.#unit = unit;
   }
 
