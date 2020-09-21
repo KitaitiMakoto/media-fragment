@@ -7,9 +7,12 @@ Synopsis
 --------
 
 ```javascript
-import {MediaFragmentSpatial} from '@kitaitimakoto/media-fragment';
+import {MediaMediaFragment, MediaFragmentSpatial} from '@kitaitimakoto/media-fragment';
 
-let mfs = new MediaFragmentSpatial('160,120,320,240');
+let mf = new MediaFragment('t=npt:10,20&xywh=pixel:160,120,320,240');
+console.log(mf.toString()); // => t=npt%3A10%2C20&xywh=pixel%3A160%2C120%2C320%2C240
+
+let mfs = mf.get('xywh');
 console.log(mfs.x); // => 160 px
 console.log(mfs.y); // => 120 px
 console.log(mfs.w); // => 320 px
@@ -19,10 +22,8 @@ let mfs2 = new MediaFragmentSpatial('percent:25.3,25.5,50.456,50');
 let width = 1260; // pixels
 let height = 1476; // pixels
 let result = mfs2.resolve(width, height);
-cosnole.log(result.x); // 74 px
-console.log(result.y); // 64 px
-console.log(result.w); // 31 px
-console.log(result.h); // 37 px
+cosnole.log(result);
+// => Object { x: 318, y: 376, w: 636, h: 738 }
 ```
 
 Environments
@@ -34,13 +35,22 @@ Media Fragment provides `index.js` file as an ES module. You can use it in both 
 
 ```html
 <script type=module>
-  import {MediaFragmentSpatial} from './node_modules/@kitaitimakoto/media-fragment/index.js';
+  import {MediaMediaFragment, MediaFragmentSpatial} from '@kitaitimakoto/media-fragment';
 
-  let mfs = new MediaFragmentSpatial('percent:25.3,25.5,50.456,50');
+  let mf = new MediaFragment('t=npt:10,20&xywh=pixel:160,120,320,240');
+  console.log(mf.toString()); // => t=npt%3A10%2C20&xywh=pixel%3A160%2C120%2C320%2C240
+
+  let mfs = mf.get('xywh');
+  console.log(mfs.x); // => 160 px
+  console.log(mfs.y); // => 120 px
+  console.log(mfs.w); // => 320 px
+  console.log(mfs.h); // => 240 px
+
+  let mfs2 = new MediaFragmentSpatial('percent:25.3,25.5,50.456,50');
   let width = 1260; // pixels
   let height = 1476; // pixels
-  let result = mfs.resolve(width, height);
-  console.log(result);
+  let result = mfs2.resolve(width, height);
+  cosnole.log(result);
   // => Object { x: 318, y: 376, w: 636, h: 738 }
 </script>
 ```
@@ -49,19 +59,56 @@ Media Fragment provides `index.js` file as an ES module. You can use it in both 
 
 ```javascript
 // index.mjs
-import {MediaFragmentSpatial} from '@kitaitimakoto/media-fragment';
+import {MediaFragment, MediaFragmentSpatial} from '@kitaitimakoto/media-fragment';
 
-let mfs = new MediaFragmentSpatial('percent:25.3,25.5,50.456,50');
+let mf = new MediaFragment('t=npt:10,20&xywh=pixel:160,120,320,240');
+console.log(mf.toString()); // => t=npt%3A10%2C20&xywh=pixel%3A160%2C120%2C320%2C240
+
+let mfs = mf.get('xywh');
+console.log(mfs.x); // => 160 px
+console.log(mfs.y); // => 120 px
+console.log(mfs.w); // => 320 px
+console.log(mfs.h); // => 240 px
+
+let mfs2 = new MediaFragmentSpatial('percent:25.3,25.5,50.456,50');
 let width = 1260; // pixels
 let height = 1476; // pixels
-let result = mfs.resolve(width, height);
+let result = mfs2.resolve(width, height);
 console.log(result);
 ```
 
     % node index.mjs
+    t=npt%3A10%2C20&xywh=pixel%3A160%2C120%2C320%2C240
+    160
+    120
+    320
+    240
     { x: 318, y: 376, w: 636, h: 738 }
 
 ### TypeScript ###
+
+```typescript
+// index.ts
+import {MediaFragment, MediaFragmentSpatial} from '@kitaitimakoto/media-fragment';
+
+let mf = new MediaFragment('t=npt:10,20&xywh=pixel:160,120,320,240');
+console.log(mf.toString()); // => t=npt%3A10%2C20&xywh=pixel%3A160%2C120%2C320%2C240
+
+let mfs = mf.get('xywh');
+// Need if clause to show mfs is a MediaFragmentSpatial to compiler
+if (mfs instanceof MediaFragmentSpatial) {
+  console.log(mfs.x); // => 160 px
+  console.log(mfs.y); // => 120 px
+  console.log(mfs.w); // => 320 px
+  console.log(mfs.h); // => 240 px
+}
+
+let mfs2 = new MediaFragmentSpatial('percent:25.3,25.5,50.456,50');
+let width = 1260; // pixels
+let height = 1476; // pixels
+let result = mfs2.resolve(width, height);
+console.log(result);
+```
 
 ```json
 // tsconfig.json
@@ -75,17 +122,6 @@ console.log(result);
     "index.ts"
   ]
 }
-```
-
-```typescript
-// index.ts
-import {MediaFragmentSpatial} from '@kitaitimakoto/media-fragment';
-
-let mfs = new MediaFragmentSpatial('percent:25.3,25.5,50.456,50');
-let width = 1260; // pixels
-let height = 1476; // pixels
-let result = mfs.resolve(width, height);
-console.log(result);
 ```
 
     % tsc && mv index.js index.mjs && node index.mjs
