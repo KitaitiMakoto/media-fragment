@@ -1,4 +1,5 @@
-type Pair = [string, string];
+type Fragment = string | MediaFragmentSpatial;
+type Pair = [string, Fragment];
 
 class MediaFragment {
   #pairs: Array<Pair>;
@@ -17,7 +18,7 @@ class MediaFragment {
     return false;
   }
 
-  get(name: string): string | null {
+  get(name: string): Fragment | null {
     const l = this.#pairs.length;
     for (let i = l - 1; i >= 0; i--) {
       let [n, v] = this.#pairs[i];
@@ -26,7 +27,7 @@ class MediaFragment {
     return null;
   }
 
-  getAll(name: string): Array<string> {
+  getAll(name: string): Array<Fragment> {
     let values = [];
     for (let [n, v] of this.#pairs) {
       if (n === name) values.push(v);
@@ -38,7 +39,7 @@ class MediaFragment {
     return this.#pairs;
   }
 
-  append(name: string, value: string): void {
+  append(name: string, value: Fragment): void {
     this.#pairs.push([name, value]);
   }
 
@@ -48,7 +49,7 @@ class MediaFragment {
     for (let [name, value] of this.#pairs) {
       if (! first) str += '&';
       if (first) first = false;
-      str += encodeURIComponent(name) + '=' + encodeURIComponent(value);
+      str += encodeURIComponent(name) + '=' + encodeURIComponent(value.toString());
     }
     return str;
   }
@@ -65,11 +66,14 @@ class MediaFragment {
       } catch(URIError) {
         continue;
       }
-      let value = pairString.slice(pos + 1);
+      let value: Fragment = pairString.slice(pos + 1);
       try {
         value = decodeURIComponent(value);
       } catch(URIError) {
         continue;
+      }
+      if (name === 'xywh') {
+        value = new MediaFragmentSpatial(value);
       }
       pairs.push([name, value]);
     }

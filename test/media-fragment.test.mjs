@@ -6,7 +6,7 @@ describe('constructor', () => {
   assert.strictEqual(mf.has('t'), true);
   assert.strictEqual(mf.get('t'), 'npt:10,20');
   assert.strictEqual(mf.has('xywh'), true);
-  assert.strictEqual(mf.get('xywh'), 'pixel:160,120,320,240');
+  assert.deepStrictEqual(mf.get('xywh'), new MediaFragmentSpatial('pixel:160,120,320,240'));
   assert.strictEqual(mf.has('nothing'), false);
   assert.strictEqual(mf.get('nothing'), null);
   assert.strictEqual(decodeURIComponent(mf.toString()), 't=npt:10,20&xywh=pixel:160,120,320,240');
