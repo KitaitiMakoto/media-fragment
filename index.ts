@@ -49,7 +49,7 @@ class MediaFragment {
     for (let [name, value] of this.#pairs) {
       if (! first) str += '&';
       if (first) first = false;
-      str += encodeURIComponent(name) + '=' + encodeURIComponent(value.toString());
+      str += encodeURI(name) + '=' + encodeURI(value.toString());
     }
     return str;
   }
