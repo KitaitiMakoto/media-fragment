@@ -10,7 +10,7 @@ Synopsis
 import {MediaMediaFragment, MediaFragmentSpatial} from '@kitaitimakoto/media-fragment';
 
 let mf = new MediaFragment('t=npt:10,20&xywh=pixel:160,120,320,240');
-console.log(mf.toString()); // => t=npt%3A10%2C20&xywh=pixel%3A160%2C120%2C320%2C240
+console.log(mf.toString()); // => t=npt:10,20&xywh=pixel:160,120,320,240
 
 let mfs = mf.get('xywh');
 console.log(mfs.x); // => 160 px
@@ -81,7 +81,7 @@ console.log(result);
 Run the script:
 
     % node index.mjs
-    t=npt%3A10%2C20&xywh=pixel%3A160%2C120%2C320%2C240
+    t=npt:10,20&xywh=pixel:160,120,320,240
     160
     120
     320
@@ -96,7 +96,7 @@ Run the script:
 import {MediaFragment, MediaFragmentSpatial} from '@kitaitimakoto/media-fragment';
 
 let mf = new MediaFragment('t=npt:10,20&xywh=pixel:160,120,320,240');
-console.log(mf.toString()); // => t=npt%3A10%2C20&xywh=pixel%3A160%2C120%2C320%2C240
+console.log(mf.toString()); // => t=npt:10,20&xywh=pixel:160,120,320,240
 
 let mfs = mf.get('xywh');
 // Need if clause to show mfs is a MediaFragmentSpatial to compiler
@@ -132,6 +132,11 @@ console.log(result);
 Run the script:
 
     % tsc && mv index.js index.mjs && node index.mjs
+    t=npt:10,20&xywh=pixel:160,120,320,240
+    160
+    120
+    320
+    240
     { x: 318, y: 376, w: 636, h: 738 }
 
 Documentation
