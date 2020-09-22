@@ -227,4 +227,5 @@ class SpatialDimension {
   }
 }
 
-export {MediaFragment, SpatialDimension};
+export default MediaFragment;
+export {SpatialDimension};
