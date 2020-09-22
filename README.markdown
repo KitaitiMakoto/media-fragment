@@ -87,7 +87,7 @@ let mf = new MediaFragment('t=npt:10,20&xywh=pixel:160,120,320,240');
 console.log(mf.toString()); // t=npt:10,20&xywh=pixel:160,120,320,240
 
 let sd = mf.get('xywh');
-// Need if clause to tell that mfs is a MediaFragmentSpatial to compiler
+// Need if clause to tell that mfs is a SpatialDimension to compiler
 if (sd instanceof SpatialDimension) {
   console.log(sd.x); // 160 px
   console.log(sd.y); // 120 px
