@@ -2,10 +2,9 @@ type Dimension = string | SpatialDimension;
 type Pair = [string, Dimension];
 
 class MediaFragment {
-  #pairs: Array<Pair>;
+  #pairs: Array<Pair> = [];
 
   constructor(init?: string) {
-    this.#pairs = [];
     if (typeof init === 'string') {
       this.#pairs = this._parseString(init);
     }
@@ -97,18 +96,16 @@ interface ResolvedDimension {
 type Unit = 'pixel' | 'percent';
 
 class SpatialDimension {
-  #unit: Unit;
-  #x: number;
-  #y: number;
-  #w: number;
-  #h: number;
+  #unit: Unit = 'pixel';
+  #x: number = 0;
+  #y: number = 0;
+  #w: number = 0;
+  #h: number = 0;
 
   /**
    * @throws Will throw an error if the argument'format is not valid.
    */
   constructor(value?: string) {
-    this.#unit = 'pixel';
-    this.#x = this.#y = this.#w = this.#h = 0;
     if (typeof value === 'string') {
       this._parseString(value);
     }
