@@ -14,6 +14,10 @@ describe('constructor', () => {
   assert.strictEqual(decodeURIComponent(new MediaFragment('t=npt:10,20&xywh=pixel:160,120,320,240&t=10,20')).toString(), 't=npt:10,20&xywh=pixel:160,120,320,240&t=10,20');
 
   assert.strictEqual(decodeURIComponent(new MediaFragment('id=%xy&t=1')).toString(), 't=1');
+
+  let url = new URL('https://example.com/?query=param#xywh=160,120,320,240');
+  let mf2 = new MediaFragment(url.hash);
+  assert.deepStrictEqual(mf2.get('xywh'), new SpatialDimension('160,120,320,240'));
 });
 
 describe('append', () => {

@@ -68,6 +68,9 @@ class MediaFragment {
   }
 
   _parseString(string: string): Array<Pair> {
+    if (string.startsWith('#')) {
+      string = string.slice(1);
+    }
     let pairs: Array<Pair> = [];
     let pairStrings = string.split('&');
     for (let pairString of pairStrings) {
