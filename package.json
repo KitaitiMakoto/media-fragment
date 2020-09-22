@@ -24,7 +24,7 @@
   "bugs": {
     "url": "https://gitlab.com/KitaitiMakoto/media-fragments/issues"
   },
-  "homepage": "https://gitlab.com/KitaitiMakoto/media-fragments#readme",
+  "homepage": "https://kitaitimakoto.gitlab.io/media-fragment/",
   "devDependencies": {
     "mocha": "^8.1.3",
     "typedoc": "^0.19.2",
