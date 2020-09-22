@@ -1,4 +1,4 @@
-type Fragment = string | MediaFragmentSpatial;
+type Fragment = string | SpatialDimension;
 type Pair = [string, Fragment];
 
 class MediaFragment {
@@ -79,7 +79,7 @@ class MediaFragment {
         continue;
       }
       if (name === 'xywh') {
-        value = new MediaFragmentSpatial(value);
+        value = new SpatialDimension(value);
       }
       pairs.push([name, value]);
     }
@@ -96,7 +96,7 @@ interface ResolvedDimension {
 
 type Unit = 'pixel' | 'percent';
 
-class MediaFragmentSpatial {
+class SpatialDimension {
   #unit: Unit;
   #x: number;
   #y: number;
@@ -230,4 +230,4 @@ class MediaFragmentSpatial {
   }
 }
 
-export {MediaFragment, MediaFragmentSpatial};
+export {MediaFragment, SpatialDimension};

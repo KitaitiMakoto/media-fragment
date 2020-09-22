@@ -1,12 +1,12 @@
 import assert from 'assert';
-import {MediaFragment, MediaFragmentSpatial} from '../index.js';
+import {MediaFragment, SpatialDimension} from '../index.js';
 
 describe('constructor', () => {
   let mf = new MediaFragment('t=npt:10,20&xywh=pixel:160,120,320,240');
   assert.strictEqual(mf.has('t'), true);
   assert.strictEqual(mf.get('t'), 'npt:10,20');
   assert.strictEqual(mf.has('xywh'), true);
-  assert.deepStrictEqual(mf.get('xywh'), new MediaFragmentSpatial('pixel:160,120,320,240'));
+  assert.deepStrictEqual(mf.get('xywh'), new SpatialDimension('pixel:160,120,320,240'));
   assert.strictEqual(mf.has('nothing'), false);
   assert.strictEqual(mf.get('nothing'), null);
   assert.strictEqual(decodeURIComponent(mf.toString()), 't=npt:10,20&xywh=pixel:160,120,320,240');
@@ -29,7 +29,7 @@ describe('append', () => {
 
 describe('spatial', () => {
   describe('default', () => {
-    let mf = new MediaFragmentSpatial();
+    let mf = new SpatialDimension();
     assert.strictEqual(mf.unit, 'pixel');
     assert.strictEqual(mf.x, 0);
     assert.strictEqual(mf.y, 0);
@@ -38,14 +38,14 @@ describe('spatial', () => {
   });
 
   describe('getter', () => {
-    let mf = new MediaFragmentSpatial('160,120,320,240');
+    let mf = new SpatialDimension('160,120,320,240');
     assert.strictEqual(mf.unit, 'pixel');
     assert.strictEqual(mf.x, 160);
     assert.strictEqual(mf.y, 120);
     assert.strictEqual(mf.w, 320);
     assert.strictEqual(mf.h, 240);
 
-    let mf2 = new MediaFragmentSpatial('percent:25.3,25.5,50.456,50');
+    let mf2 = new SpatialDimension('percent:25.3,25.5,50.456,50');
     assert.strictEqual(mf2.unit, 'percent');
     assert.strictEqual(mf2.x, 25.3);
     assert.strictEqual(mf2.y, 25.5);
@@ -55,7 +55,7 @@ describe('spatial', () => {
   });
 
   describe('setter', () => {
-    let mf = new MediaFragmentSpatial();
+    let mf = new SpatialDimension();
     mf.x = 160;
     mf.y = 120;
     mf.w = 320;
@@ -64,7 +64,7 @@ describe('spatial', () => {
   });
 
   describe('resolve pixel', () => {
-    let mf = new MediaFragmentSpatial('160,120,320,240');
+    let mf = new SpatialDimension('160,120,320,240');
 
     let w1 = 500;
     let h1 = 400;
@@ -95,7 +95,7 @@ describe('spatial', () => {
   });
 
   describe('resolve percent', () => {
-    let mf = new MediaFragmentSpatial('percent:25.3,25.5,50.456,50');
+    let mf = new SpatialDimension('percent:25.3,25.5,50.456,50');
     let width = 1260;
     let height = 1476;
     let res = mf.resolve(width, height);
