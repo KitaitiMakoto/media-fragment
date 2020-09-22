@@ -95,6 +95,13 @@ if (sd instanceof SpatialDimension) {
   console.log(sd.h); // 240 px
 }
 
+// Or
+let sdAlt = mf.spatialDimension;
+console.log(sdAlt.x); // 160 px
+console.log(sdAlt.y); // 120 px
+console.log(sdAlt.w); // 320 px
+console.log(sdAlt.h); // 240 px
+
 let sd2 = new SpatialDimension('percent:25.3,25.5,50.456,50');
 let width = 1000; // pixels
 let height = 1000; // pixels
