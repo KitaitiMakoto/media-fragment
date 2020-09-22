@@ -59,6 +59,14 @@ class MediaFragment {
     return str;
   }
 
+  get spatialDimension(): SpatialDimension | null {
+    return this.get('xywh') as SpatialDimension | null;
+  }
+
+  get allSpatialDimensions(): Array<SpatialDimension> {
+    return this.getAll('xywh') as Array<SpatialDimension>;
+  }
+
   _parseString(string: string): Array<Pair> {
     let pairs: Array<Pair> = [];
     let pairStrings = string.split('&');
