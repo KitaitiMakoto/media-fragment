@@ -6,7 +6,7 @@ class MediaFragment {
 
   constructor(init?: string) {
     if (typeof init === 'string') {
-      this.#pairs = this._parseString(init);
+      this._parseString(init);
     }
   }
 
@@ -67,11 +67,10 @@ class MediaFragment {
     return this.getAll('xywh') as Array<SpatialDimension>;
   }
 
-  _parseString(string: string): Array<Pair> {
+  _parseString(string: string): void {
     if (string.startsWith('#')) {
       string = string.slice(1);
     }
-    let pairs: Array<Pair> = [];
     let pairStrings = string.split('&');
     for (let pairString of pairStrings) {
       let pos = pairString.indexOf('=');
@@ -91,9 +90,8 @@ class MediaFragment {
       if (name === 'xywh') {
         value = new SpatialDimension(value);
       }
-      pairs.push([name, value]);
+      this.#pairs.push([name, value]);
     }
-    return pairs;
   }
 }
 
