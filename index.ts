@@ -1,5 +1,5 @@
-type Fragment = string | SpatialDimension;
-type Pair = [string, Fragment];
+type Dimension = string | SpatialDimension;
+type Pair = [string, Dimension];
 
 class MediaFragment {
   #pairs: Array<Pair>;
@@ -24,7 +24,7 @@ class MediaFragment {
    * Why the last while `URLSearchParams.get()` returns the first?
    * See the [spec](https://www.w3.org/2008/WebVideo/Fragments/WD-media-fragments-spec/#error-uri-general).
    */
-  get(name: string): Fragment | null {
+  get(name: string): Dimension | null {
     const l = this.#pairs.length;
     for (let i = l - 1; i >= 0; i--) {
       let [n, v] = this.#pairs[i];
@@ -33,7 +33,7 @@ class MediaFragment {
     return null;
   }
 
-  getAll(name: string): Array<Fragment> {
+  getAll(name: string): Array<Dimension> {
     let values = [];
     for (let [n, v] of this.#pairs) {
       if (n === name) values.push(v);
@@ -45,7 +45,7 @@ class MediaFragment {
     return this.#pairs;
   }
 
-  append(name: string, value: Fragment): void {
+  append(name: string, value: Dimension): void {
     this.#pairs.push([name, value]);
   }
 
@@ -72,7 +72,7 @@ class MediaFragment {
       } catch(URIError) {
         continue;
       }
-      let value: Fragment = pairString.slice(pos + 1);
+      let value: Dimension = pairString.slice(pos + 1);
       try {
         value = decodeURIComponent(value);
       } catch(URIError) {
