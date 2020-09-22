@@ -87,7 +87,7 @@ class MediaFragment {
   }
 }
 
-interface SpatialDimension {
+interface ResolvedDimension {
   x: number,
   y: number,
   w: number,
@@ -184,7 +184,7 @@ class MediaFragmentSpatial {
     this.#h = h;
   }
 
-  resolve(sourceWidth: number, sourceHeight: number): SpatialDimension {
+  resolve(sourceWidth: number, sourceHeight: number): ResolvedDimension {
     if (this.#unit === 'pixel') {
       let x = Math.min(this.#x, sourceWidth);
       let y = Math.min(this.#y, sourceHeight);
