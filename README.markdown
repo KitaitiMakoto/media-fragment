@@ -127,7 +127,7 @@ Run the script:
     240
     { x: 318, y: 376, w: 636, h: 738 }
 
-Documentation
--------------
+API
+----
 
 Visit https://kitaitimakoto.gitlab.io/media-fragment/
