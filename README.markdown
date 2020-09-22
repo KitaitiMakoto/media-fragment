@@ -99,7 +99,7 @@ let mf = new MediaFragment('t=npt:10,20&xywh=pixel:160,120,320,240');
 console.log(mf.toString()); // => t=npt:10,20&xywh=pixel:160,120,320,240
 
 let mfs = mf.get('xywh');
-// Need if clause to show mfs is a MediaFragmentSpatial to compiler
+// Need if clause to tell that mfs is a MediaFragmentSpatial to compiler
 if (mfs instanceof MediaFragmentSpatial) {
   console.log(mfs.x); // => 160 px
   console.log(mfs.y); // => 120 px
