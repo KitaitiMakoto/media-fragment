@@ -138,3 +138,8 @@ API
 ----
 
 Visit https://kitaitimakoto.gitlab.io/media-fragment/
+
+Source Code
+-----------
+
+Visit https://gitlab.com/KitaitiMakoto/media-fragment
