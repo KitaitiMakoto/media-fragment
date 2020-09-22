@@ -93,7 +93,7 @@ Run the script:
 `index.ts`:
 
 ```typescript
-import {MediaFragment, MediaFragmentSpatial} from '@kitaitimakoto/media-fragment';
+import {MediaFragment, MediaFragmentSpatial} from './node_modules/@kitaitimakoto/media-fragment';
 
 let mf = new MediaFragment('t=npt:10,20&xywh=pixel:160,120,320,240');
 console.log(mf.toString()); // => t=npt:10,20&xywh=pixel:160,120,320,240
