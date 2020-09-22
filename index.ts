@@ -18,6 +18,12 @@ class MediaFragment {
     return false;
   }
 
+  /**
+   * @return Value of the last name-value pairs whose name is `name`.
+   *
+   * Why the last while `URLSearchParams.get()` returns the first?
+   * See the [spec](https://www.w3.org/2008/WebVideo/Fragments/WD-media-fragments-spec/#error-uri-general).
+   */
   get(name: string): Fragment | null {
     const l = this.#pairs.length;
     for (let i = l - 1; i >= 0; i--) {
