@@ -4,6 +4,11 @@ type Pair = [string, Dimension];
 class MediaFragment {
   #pairs: Array<Pair> = [];
 
+  /**
+   * * Components other than key-name format will be ignored.
+   * * Keys other than `t`, `xywh`, `track` and `id` will be ignored.
+   *   See https://www.w3.org/TR/media-frags/#processing-name-value-lists
+   */
   constructor(init?: string) {
     if (typeof init === 'string') {
       this._parseString(init);
