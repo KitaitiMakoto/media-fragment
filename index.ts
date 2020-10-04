@@ -63,10 +63,6 @@ class MediaFragment {
     return this.get('xywh') as SpatialDimension | null;
   }
 
-  get allSpatialDimensions(): Array<SpatialDimension> {
-    return this.getAll('xywh') as Array<SpatialDimension>;
-  }
-
   _parseString(string: string): void {
     if (string.startsWith('#')) {
       string = string.slice(1);
