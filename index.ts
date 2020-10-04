@@ -1,6 +1,8 @@
 type Dimension = string | SpatialDimension;
 type Pair = [string, Dimension];
 
+const AVAILABLE_KEYWORDS = ['t', 'xywh', 'track', 'id'];
+
 class MediaFragment {
   #pairs: Array<Pair> = [];
 
@@ -81,6 +83,10 @@ class MediaFragment {
         name = decodeURIComponent(name);
       } catch(URIError) {
         continue;
+      }
+      if (! AVAILABLE_KEYWORDS.includes(name)) {
+        console.warn(`${name} is not a name of Media Fragment URI. See https://www.w3.org/TR/media-frags/#processing-name-value-lists`);
+        return;
       }
       let value: Dimension = pairString.slice(pos + 1);
       try {
