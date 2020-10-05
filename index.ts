@@ -1,6 +1,16 @@
 type Dimension = TemporalDimension | SpatialDimension | TrackDimension | IdDimension;
 type Pair = [string, Dimension];
 
+/**
+ * MediaFragment
+ *
+ * ```javascript
+ * import MediaFragment from '@kitaitimakoto/media-fragment';
+ * 
+ * let mf = new MediaFragment('t=npt:10,20&xywh=pixel:160,120,320,240');
+ * console.log(mf.toString()); // t=npt:10,20&xywh=pixel:160,120,320,240
+ * ```
+ */
 class MediaFragment {
   #pairs: Array<Pair> = [];
 
@@ -201,6 +211,32 @@ interface SpatialMediaClipping {
 
 type SpatialUnit = 'pixel' | 'percent';
 
+/**
+ * SpatialDimension
+ *
+ * ```
+ * import MediaFragment from '@kitaitimakoto/media-fragument';
+ * 
+ * let mf = new MediaFragment('t=npt:10,20&xywh=pixel:160,120,320,240');
+ * let sd = mf.get('xywh');
+ * console.log(sd.x); // 160 px
+ * console.log(sd.y); // 120 px
+ * console.log(sd.w); // 320 px
+ * console.log(sd.h); // 240 px
+ * ```
+ *
+ * Usage with `new` operator:
+ *
+ * ```javascript
+ * import {SpatialDimension} from '@kitaitimakoto/media-fragument';
+ * 
+ * let sd2 = new SpatialDimension('percent:25.3,25.5,50.456,50');
+ * let width = 1000; // pixels
+ * let height = 1000; // pixels
+ * let result = sd2.clip({width, height});
+ * console.log(result); // { x: 253, y: 255, w: 505, h: 500 }
+ * ```
+ */
 class SpatialDimension {
   #unit: SpatialUnit = 'pixel';
   #x: number = 0;
