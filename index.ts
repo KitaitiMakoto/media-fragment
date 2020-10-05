@@ -128,10 +128,10 @@ interface ResolvedDimension {
   h: number,
 }
 
-type Unit = 'pixel' | 'percent';
+type SpatialUnit = 'pixel' | 'percent';
 
 class SpatialDimension {
-  #unit: Unit = 'pixel';
+  #unit: SpatialUnit = 'pixel';
   #x: number = 0;
   #y: number = 0;
   #w: number = 0;
@@ -146,14 +146,14 @@ class SpatialDimension {
     }
   }
 
-  get unit(): Unit {
+  get unit(): SpatialUnit {
     return this.#unit;
   }
 
   /**
    * @throws Will throw an error if the argument is neither 'pixel' nor 'percent'.
    */
-  set unit(unit: Unit) {
+  set unit(unit: SpatialUnit) {
     if (unit !== 'pixel' && unit !== 'percent') {
       throw new Error('unit must be "pixel" or "percent"');
     }
