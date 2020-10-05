@@ -263,11 +263,39 @@ class SpatialDimension {
 }
 
 class TrackDimension {
+  #value: string;
 
+  constructor(value?: string) {
+    if (typeof value === 'string') {
+      this._parseString(value);
+    }
+  }
+
+  toString(): string {
+    return this.#value;
+  }
+
+  _parseString(string: string): void {
+    this.#value = string;
+  }
 }
 
 class IdDimension {
+  #value: string;
 
+  constructor(value?: string) {
+    if (typeof value === 'string') {
+      this._parseString(value);
+    }
+  }
+
+  toString(): string {
+    return this.#value;
+  }
+
+  _parseString(string: string): void {
+    this.#value = string;
+  }
 }
 
 interface DimensionConstructor {
