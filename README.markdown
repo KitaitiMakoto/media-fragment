@@ -37,19 +37,7 @@ Media Fragment provides `index.js` file as an ES module. You can use it in both 
   import MediaFragment, {SpatialDimension} from './node_modules/@kitaitimakoto/media-fragment/index.js';
 
   let mf = new MediaFragment('t=npt:10,20&xywh=pixel:160,120,320,240');
-  console.log(mf.toString()); // t=npt:10,20&xywh=pixel:160,120,320,240
-
-  let sd = mf.get('xywh');
-  console.log(sd.x); // 160 px
-  console.log(sd.y); // 120 px
-  console.log(sd.w); // 320 px
-  console.log(sd.h); // 240 px
-
-  let sd2 = new SpatialDimension('percent:25.3,25.5,50.456,50');
-  let width = 1000; // pixels
-  let height = 1000; // pixels
-  let result = sd2.clip({width, height});
-  console.log(result); // Object { x: 253, y: 255, w: 505, h: 500 }
+  // work with `mf`
 </script>
 ```
 
@@ -61,20 +49,12 @@ Media Fragment provides `index.js` file as an ES module. You can use it in both 
 import MediaFragment, {SpatialDimension} from '@kitaitimakoto/media-fragment';
 
 let mf = new MediaFragment('t=npt:10,20&xywh=pixel:160,120,320,240');
-console.log(mf.toString()); // t=npt:10,20&xywh=pixel:160,120,320,240
-
-let sd = mf.get('xywh');
-console.log(sd.x); // 160 px
-console.log(sd.y); // 120 px
-console.log(sd.w); // 320 px
-console.log(sd.h); // 240 px
-
-let sd2 = new SpatialDimension('percent:25.3,25.5,50.456,50');
-let width = 1000; // pixels
-let height = 1000; // pixels
-let result = sd2.clip({width, height});
-console.log(result); // { x: 253, y: 255, w: 505, h: 500 }
+// work with `mf`
 ```
+
+Run script:
+
+    % node index.mjs
 
 ### TypeScript ###
 
@@ -84,7 +64,6 @@ console.log(result); // { x: 253, y: 255, w: 505, h: 500 }
 import MediaFragment, {SpatialDimension} from '@kitaitimakoto/media-fragment';
 
 let mf = new MediaFragment('t=npt:10,20&xywh=pixel:160,120,320,240');
-console.log(mf.toString()); // t=npt:10,20&xywh=pixel:160,120,320,240
 
 let sd = mf.get('xywh');
 // Need if clause to tell that mfs is a SpatialDimension to compiler
@@ -102,11 +81,7 @@ console.log(sdAlt.y); // 120 px
 console.log(sdAlt.w); // 320 px
 console.log(sdAlt.h); // 240 px
 
-let sd2 = new SpatialDimension('percent:25.3,25.5,50.456,50');
-let width = 1000; // pixels
-let height = 1000; // pixels
-let result = sd2.clip(width, height);
-console.log(result); // { x: 253, y: 255, w: 505, h: 500 }
+// work with `mf` and `sd` or `sdAlt`
 ```
 
 `tsconfig.json`:
@@ -127,12 +102,10 @@ console.log(result); // { x: 253, y: 255, w: 505, h: 500 }
 Run the script:
 
     % tsc && mv index.js index.mjs && node index.mjs
-    t=npt:10,20&xywh=pixel:160,120,320,240
     160
     120
     320
     240
-    { x: 318, y: 376, w: 636, h: 738 }
 
 API
 ----
