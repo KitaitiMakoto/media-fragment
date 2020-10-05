@@ -64,6 +64,10 @@ class MediaFragment {
     return str;
   }
 
+  get temporalDimension(): TemporalDimension | null {
+    return this.get('t') as TemporalDimension | null
+  }
+
   get spatialDimension(): SpatialDimension | null {
     return this.get('xywh') as SpatialDimension | null;
   }
