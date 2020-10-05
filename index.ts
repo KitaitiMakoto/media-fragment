@@ -76,9 +76,9 @@ class MediaFragment {
     if (string.startsWith('#')) {
       string = string.slice(1);
     }
-    let pairStrings = string.split('&');
+    const pairStrings = string.split('&');
     for (let pairString of pairStrings) {
-      let pos = pairString.indexOf('=');
+      const pos = pairString.indexOf('=');
       if (pos === -1) continue;
       let name = pairString.slice(0, pos);
       try {
@@ -289,10 +289,10 @@ class SpatialDimension {
 
   clip({width, height}: SpatialMedia): SpatialMediaClipping {
     if (this.#unit === 'pixel') {
-      let x = Math.min(this.#x, width);
-      let y = Math.min(this.#y, height);
-      let w = (x + this.#w > width) ? width - x : this.#w;
-      let h = (y + this.#h > height) ? height - y : this.#h;
+      const x = Math.min(this.#x, width);
+      const y = Math.min(this.#y, height);
+      const w = (x + this.#w > width) ? width - x : this.#w;
+      const h = (y + this.#h > height) ? height - y : this.#h;
       return {x, y, w, h}
     } else {
       return {
