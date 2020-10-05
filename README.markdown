@@ -7,12 +7,17 @@ Synopsis
 --------
 
 ```javascript
-import MediaFragment, {SpatialDimension} from '@kitaitimakoto/media-fragment';
+import MediaFragment, {TemporalDimension, SpatialDimension} from '@kitaitimakoto/media-fragment';
 
 let mf = new MediaFragment('t=npt:10,20&xywh=pixel:160,120,320,240');
 console.log(mf.toString()); // t=npt:10,20&xywh=pixel:160,120,320,240
 
-let sd = mf.get('xywh');
+let td = mf.get('t'); // TemporalDimension
+td === mf.temporalDimension;
+console.log(td.s); // start time: 10 seconds
+console.log(td.e); // end time: 20 seconds
+
+let sd = mf.get('xywh'); // SpatialDimension
 console.log(sd.x); // 160 px
 console.log(sd.y); // 120 px
 console.log(sd.w); // 320 px

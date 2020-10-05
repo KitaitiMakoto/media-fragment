@@ -157,6 +157,45 @@ class MediaFragment {
   }
 }
 
+/**
+ * Usage
+ *
+ * ```javascript
+ * import MediaFragment from '@kitaitimakoto/media-fragument';
+ * 
+ * let mf = new MediaFragment('t=npt:10,20&xywh=pixel:160,120,320,240');
+ * console.log(td.s); // 10 (start time in seconds)
+ * console.log(td.e); // 20 (end time in seconds)
+ * ```
+ * Usage with constructor:
+ *
+ * ```javascript
+ * import {TemporalDimension} from '@kitaitimakoto/media-fragument';
+ * 
+ * let td = new TemporalDimension('10,20');
+ * console.log(td.s); // 10
+ * console.log(td.e); // 20
+ * ```
+ *
+ * Various values
+ *
+ * ```javascript
+ * let td = new TemporalDimension('10');
+ * console.log(td.s); // 10
+ * console.log(td.e); // Infinity (default end time which means end of media)
+ * 
+ * let td2 = new TemporalDimension('10,');
+ * td2 === td1
+ * 
+ * let td3 = new TemporalDimension(',20');
+ * console.log(td3.s); // 0 (default start time)
+ * console.log(td3.e); // 20
+ * 
+ * let td4 = new TemporalDimension('0:02:00,121.5'); // from 2 minutes to 121.5 seconds
+ * console.log(td4.s); // 120 (in seconds)
+ * console.log(td4.e); // 121.5
+ * ```
+ */
 class TemporalDimension {
   #format: string = 'npt';
   #s: number = 0;
@@ -265,7 +304,7 @@ interface SpatialMediaClipping {
 type SpatialUnit = 'pixel' | 'percent';
 
 /**
- * SpatialDimension
+ * Usage
  *
  * ```
  * import MediaFragment from '@kitaitimakoto/media-fragument';

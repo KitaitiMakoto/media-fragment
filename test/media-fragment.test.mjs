@@ -5,6 +5,7 @@ describe('constructor', () => {
   let mf = new MediaFragment('t=npt:10,20&xywh=pixel:160,120,320,240');
   assert.strictEqual(mf.has('t'), true);
   assert.deepStrictEqual(mf.get('t'), new TemporalDimension('npt:10,20'));
+  assert.deepStrictEqual(mf.get('t'), mf.temporalDimension);
   assert.strictEqual(mf.has('xywh'), true);
   assert.deepStrictEqual(mf.get('xywh'), new SpatialDimension('pixel:160,120,320,240'));
   assert.strictEqual(mf.has('nothing'), false);
