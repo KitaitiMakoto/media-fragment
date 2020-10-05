@@ -21,7 +21,7 @@ console.log(sd.h); // 240 px
 let sd2 = new SpatialDimension('percent:25.3,25.5,50.456,50');
 let width = 1000; // pixels
 let height = 1000; // pixels
-let result = sd2.resolve(width, height);
+let result = sd2.clip({width, height});
 console.log(result); // { x: 253, y: 255, w: 505, h: 500 }
 ```
 
@@ -48,7 +48,7 @@ Media Fragment provides `index.js` file as an ES module. You can use it in both 
   let sd2 = new SpatialDimension('percent:25.3,25.5,50.456,50');
   let width = 1000; // pixels
   let height = 1000; // pixels
-  let result = sd2.resolve(width, height);
+  let result = sd2.clip({width, height});
   console.log(result); // Object { x: 253, y: 255, w: 505, h: 500 }
 </script>
 ```
@@ -72,7 +72,7 @@ console.log(sd.h); // 240 px
 let sd2 = new SpatialDimension('percent:25.3,25.5,50.456,50');
 let width = 1000; // pixels
 let height = 1000; // pixels
-let result = sd2.resolve(width, height);
+let result = sd2.clip({width, height});
 console.log(result); // { x: 253, y: 255, w: 505, h: 500 }
 ```
 
@@ -105,7 +105,7 @@ console.log(sdAlt.h); // 240 px
 let sd2 = new SpatialDimension('percent:25.3,25.5,50.456,50');
 let width = 1000; // pixels
 let height = 1000; // pixels
-let result = sd2.resolve(width, height);
+let result = sd2.clip(width, height);
 console.log(result); // { x: 253, y: 255, w: 505, h: 500 }
 ```
 
