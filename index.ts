@@ -187,6 +187,11 @@ class TemporalDimension {
   }
 }
 
+interface SpatialMedia {
+  width: number,
+  height: number
+}
+
 interface SpatialMediaClipping {
   x: number,
   y: number,
@@ -282,19 +287,19 @@ class SpatialDimension {
     this.#h = h;
   }
 
-  clip(sourceWidth: number, sourceHeight: number): SpatialMediaClipping {
+  clip({width, height}: SpatialMedia): SpatialMediaClipping {
     if (this.#unit === 'pixel') {
-      let x = Math.min(this.#x, sourceWidth);
-      let y = Math.min(this.#y, sourceHeight);
-      let w = (x + this.#w > sourceWidth) ? sourceWidth - x : this.#w;
-      let h = (y + this.#h > sourceHeight) ? sourceHeight - y : this.#h;
+      let x = Math.min(this.#x, width);
+      let y = Math.min(this.#y, height);
+      let w = (x + this.#w > width) ? width - x : this.#w;
+      let h = (y + this.#h > height) ? height - y : this.#h;
       return {x, y, w, h}
     } else {
       return {
-        x: Math.floor(sourceWidth * Math.min(this.#x, 100) / 100),
-        y: Math.floor(sourceHeight * Math.min(this.#y, 100) / 100),
-        w: Math.ceil(sourceWidth * Math.min(this.#w, 100) / 100),
-        h: Math.ceil(sourceHeight * Math.min(this.#h, 100) / 100)
+        x: Math.floor(width * Math.min(this.#x, 100) / 100),
+        y: Math.floor(height * Math.min(this.#y, 100) / 100),
+        w: Math.ceil(width * Math.min(this.#w, 100) / 100),
+        h: Math.ceil(height * Math.min(this.#h, 100) / 100)
       };
     }
   }
