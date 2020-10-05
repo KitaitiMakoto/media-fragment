@@ -48,6 +48,23 @@ describe('temporal', () => {
     let td5 = new TemporalDimension('0:02:00,121.5');
     assert.strictEqual(td5.toString(), 'npt:120,121.5');
   });
+
+  describe('setter', () => {
+    let td = new TemporalDimension();
+    td.s = 10;
+    assert.strictEqual(td.s, 10);
+
+    td.s = '10';
+    assert.strictEqual(td.s, 10);
+
+    assert.strictEqual(td.e, Infinity);
+
+    td.e = 20;
+    assert.strictEqual(td.e, 20);
+
+    td.e = undefined;
+    assert.strictEqual(td.e, Infinity);
+  });
 });
 
 describe('spatial', () => {

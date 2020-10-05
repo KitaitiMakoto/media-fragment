@@ -118,12 +118,40 @@ class TemporalDimension {
     return this.#format;
   }
 
+  set format(value: string) {
+    // Noop because format is always 'npt';
+  }
+
   get s() {
     return this.#s;
   }
 
+  set s(value: string | number) {
+    if (typeof value === 'string') {
+      value = this._parseTimeString(value);
+    }
+    if ((! Number.isFinite(value) || Number.isNaN(value))) {
+      throw new TypeError('Start time is not a finite floating-point value: ${value}');
+      }
+    this.#s = value;
+  }
+
   get e() {
     return this.#e;
+  }
+
+  set e(value: string | number) {
+    if (value === undefined) {
+      this.#e = Infinity;
+      return;
+    }
+    if (typeof value === 'string') {
+      value = this._parseTimeString(value);
+    }
+    if (Number.isNaN(value)) {
+      throw new TypeError('End time is not a finite floating-point value: ${value}');
+    }
+    this.#e = value;
   }
 
   toString(): string {
@@ -139,10 +167,10 @@ class TemporalDimension {
     }
     const [start, end] = string.split(',');
     if (start !== undefined) {
-      this.#s = this._parseTimeString(start);
+      this.s = start;
     }
     if (! (end === undefined || end === '')) {
-      this.#e = this._parseTimeString(end);
+      this.e = end;
     }
   }
 
