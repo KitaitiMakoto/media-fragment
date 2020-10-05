@@ -124,6 +124,9 @@ class TemporalDimension {
     }
   }
 
+  /**
+   * Format. Always "npt".
+   */
   get format() {
     return this.#format;
   }
@@ -132,6 +135,9 @@ class TemporalDimension {
     // Noop because format is always 'npt';
   }
 
+  /**
+   * Start time
+   */
   get s() {
     return this.#s;
   }
@@ -146,6 +152,9 @@ class TemporalDimension {
     this.#s = value;
   }
 
+  /**
+   * End time
+   */
   get e() {
     return this.#e;
   }
@@ -253,6 +262,9 @@ class SpatialDimension {
     }
   }
 
+  /**
+   * Unit. "pixel" or "percent".
+   */
   get unit(): SpatialUnit {
     return this.#unit;
   }
@@ -267,6 +279,9 @@ class SpatialDimension {
     this.#unit = unit;
   }
 
+  /**
+   * x coordinate
+   */
   get x(): number {
     return this.#x;
   }
@@ -281,6 +296,9 @@ class SpatialDimension {
     this.#x = x;
   }
 
+  /**
+   * y coordinate
+   */
   get y(): number {
     return this.#y;
   }
@@ -295,6 +313,9 @@ class SpatialDimension {
     this.#y = y;
   }
 
+  /**
+   * width
+   */
   get w(): number {
     return this.#w;
   }
@@ -309,6 +330,9 @@ class SpatialDimension {
     this.#w = w;
   }
 
+  /**
+   * height
+   */
   get h(): number {
     return this.#h;
   }
