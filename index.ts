@@ -187,7 +187,7 @@ class TemporalDimension {
   }
 }
 
-interface ResolvedSpatialDimension {
+interface SpatialMediaClipping {
   x: number,
   y: number,
   w: number,
@@ -282,7 +282,7 @@ class SpatialDimension {
     this.#h = h;
   }
 
-  resolve(sourceWidth: number, sourceHeight: number): ResolvedSpatialDimension {
+  clip(sourceWidth: number, sourceHeight: number): SpatialMediaClipping {
     if (this.#unit === 'pixel') {
       let x = Math.min(this.#x, sourceWidth);
       let y = Math.min(this.#y, sourceHeight);
