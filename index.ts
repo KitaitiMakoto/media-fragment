@@ -104,20 +104,58 @@ class MediaFragment {
 }
 
 class TemporalDimension {
-  #value: string;
+  #format: string = 'npt';
+  #s: number = 0;
+  #e: number = Infinity;
 
-  constructor(value?: string) {
-    if (typeof value === 'string') {
-      this._parseString(value);
+  constructor(init?: string) {
+    if (typeof init === 'string') {
+      this._parseString(init);
     }
   }
 
+  get format() {
+    return this.#format;
+  }
+
+  get s() {
+    return this.#s;
+  }
+
+  get e() {
+    return this.#e;
+  }
+
   toString(): string {
-    return this.#value;
+    const e = this.#e === Infinity ? '' : this.#e;
+    return `${this.#format}:${this.#s},${e}`;
   }
 
   _parseString(string: string): void {
-    this.#value = string;
+    const prefix = 'npt:'
+    if (string.startsWith(prefix)) {
+      this.#format = 'npt';
+      string = string.slice(prefix.length);
+    }
+    const [start, end] = string.split(',');
+    if (start !== undefined) {
+      this.#s = this._parseTimeString(start);
+    }
+    if (! (end === undefined || end === '')) {
+      this.#e = this._parseTimeString(end);
+    }
+  }
+
+  _parseTimeString(string: string): number {
+    const comps = (string + '').split(':');
+    if (comps.length === 0) {
+      throw new TypeError('${string} is not in valid time format');
+    }
+    let time = 0;
+    for (let i = 0, l = comps.length; i < l; i++) {
+      time += Number(comps[l - i - 1]) * Math.pow(60, i);
+    }
+    return time;
   }
 }
 
