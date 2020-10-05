@@ -11,24 +11,26 @@ describe('constructor', () => {
   assert.strictEqual(mf.get('nothing'), null);
   assert.strictEqual(decodeURIComponent(mf.toString()), 't=npt:10,20&xywh=pixel:160,120,320,240');
 
-  assert.strictEqual(decodeURIComponent(new MediaFragment('t=npt:10,20&xywh=pixel:160,120,320,240&t=10,20')).toString(), 't=npt:10,20&xywh=pixel:160,120,320,240&t=npt:10,20');
+  assert.strictEqual(decodeURIComponent(new MediaFragment('t=npt:10,20&xywh=pixel:160,120,320,240&t=10,20')).toString(), 't=npt:10,20&xywh=pixel:160,120,320,240');
 
   assert.strictEqual(decodeURIComponent(new MediaFragment('id=%xy&t=1')).toString(), 't=npt:1,');
 
   let url = new URL('https://example.com/?query=param#xywh=160,120,320,240');
   let mf2 = new MediaFragment(url.hash);
   assert.deepStrictEqual(mf2.get('xywh'), new SpatialDimension('160,120,320,240'));
+
+  const mf3 = new MediaFragment('track=audio1&track=audio2');
+  assert.strictEqual(mf3.toString(), 'track=audio1&track=audio2');
 });
 
-describe('append', () => {
+describe('set', () => {
   let mf = new MediaFragment();
-  mf.append('t', '10,20');
-  assert.strictEqual(mf.get('t'), '10,20');
-  mf.append('t', 'npt:10');
-  assert.strictEqual(mf.get('t'), 'npt:10');
-  assert.deepStrictEqual(mf.getAll('t'), ['10,20', 'npt:10']);
-  assert.strictEqual(decodeURIComponent(mf.toString()), 't=10,20&t=npt:10');
-  assert.deepStrictEqual(mf.entries(), [['t', '10,20'], ['t', 'npt:10']]);
+  mf.set('t', '10,20');
+  assert.strictEqual(mf.get('t').toString(), 'npt:10,20');
+  mf.set('t', 'npt:10');
+  assert.strictEqual(mf.get('t').toString(), 'npt:10,');
+  assert.strictEqual(decodeURIComponent(mf.toString()), 't=npt:10,');
+  assert.deepStrictEqual(mf.entries(), [['t', new TemporalDimension('npt:10')]]);
 });
 
 describe('temporal', () => {
