@@ -1,7 +1,5 @@
-type Dimension = string | SpatialDimension;
+type Dimension = TemporalDimension | SpatialDimension | TrackDimension | IdDimension;
 type Pair = [string, Dimension];
-
-const AVAILABLE_KEYWORDS = ['t', 'xywh', 'track', 'id'];
 
 class MediaFragment {
   #pairs: Array<Pair> = [];
@@ -84,21 +82,38 @@ class MediaFragment {
       } catch(URIError) {
         continue;
       }
-      if (! AVAILABLE_KEYWORDS.includes(name)) {
+      const constructor = DIMENSIONS[name];
+      if (! constructor) {
         console.warn(`${name} is not a name of Media Fragment URI. See https://www.w3.org/TR/media-frags/#processing-name-value-lists`);
         return;
       }
-      let value: Dimension = pairString.slice(pos + 1);
+      let value = pairString.slice(pos + 1);
       try {
         value = decodeURIComponent(value);
       } catch(URIError) {
         continue;
       }
-      if (name === 'xywh') {
-        value = new SpatialDimension(value);
-      }
-      this.#pairs.push([name, value]);
+      const dimension = new constructor(value);
+      this.#pairs.push([name, dimension]);
     }
+  }
+}
+
+class TemporalDimension {
+  #value: string;
+
+  constructor(value?: string) {
+    if (typeof value === 'string') {
+      this._parseString(value);
+    }
+  }
+
+  toString(): string {
+    return this.#value;
+  }
+
+  _parseString(string: string): void {
+    this.#value = string;
   }
 }
 
@@ -243,5 +258,24 @@ class SpatialDimension {
   }
 }
 
+class TrackDimension {
+
+}
+
+class IdDimension {
+
+}
+
+interface DimensionConstructor {
+  new(init?: string): Dimension
+}
+
+const DIMENSIONS: Record<string, DimensionConstructor> = {
+  t: TemporalDimension,
+  xywh: SpatialDimension,
+  track: TrackDimension,
+  id: IdDimension
+};
+
 export default MediaFragment;
-export {SpatialDimension};
+export {SpatialDimension, TemporalDimension};

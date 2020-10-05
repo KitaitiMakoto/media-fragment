@@ -1,10 +1,10 @@
 import assert from 'assert';
-import MediaFragment, {SpatialDimension} from '../index.js';
+import MediaFragment, {TemporalDimension, SpatialDimension} from '../index.js';
 
 describe('constructor', () => {
   let mf = new MediaFragment('t=npt:10,20&xywh=pixel:160,120,320,240');
   assert.strictEqual(mf.has('t'), true);
-  assert.strictEqual(mf.get('t'), 'npt:10,20');
+  assert.deepStrictEqual(mf.get('t'), new TemporalDimension('npt:10,20'));
   assert.strictEqual(mf.has('xywh'), true);
   assert.deepStrictEqual(mf.get('xywh'), new SpatialDimension('pixel:160,120,320,240'));
   assert.strictEqual(mf.has('nothing'), false);
