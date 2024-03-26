@@ -166,6 +166,7 @@ type TemporalDimensionFormat = 'npt'; // , smtpe or so. Currently npt is support
  * import MediaFragment from '@kitaitimakoto/media-fragument';
  * 
  * let mf = new MediaFragment('t=npt:10,20&xywh=pixel:160,120,320,240');
+ * let td = mf.get('t');
  * console.log(td.s); // 10 (start time in seconds)
  * console.log(td.e); // 20 (end time in seconds)
  * ```
