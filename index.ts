@@ -14,7 +14,7 @@ type ValidDimension = TemporalDimension | SpatialDimension | TrackDimension[] | 
  * ```
  */
 class MediaFragment {
-  #dimensions: Record<string, ValidDimension> = {};
+  #dimensions: Partial<Record<DimensionName, ValidDimension>> = {};
 
   /**
    * * Components other than key-name format will be ignored.
@@ -27,7 +27,7 @@ class MediaFragment {
     }
   }
 
-  has(name: string): boolean {
+  has(name: DimensionName): boolean {
     return name in this.#dimensions;
   }
 
@@ -37,7 +37,7 @@ class MediaFragment {
    * Why the last while `URLSearchParams.get()` returns the first?
    * See the [spec](https://www.w3.org/2008/WebVideo/Fragments/WD-media-fragments-spec/#error-uri-general).
    */
-  get(name: string): ValidDimension | null {
+  get(name: DimensionName): ValidDimension | null {
     return this.#dimensions[name] ?? null;
   }
 
@@ -45,7 +45,7 @@ class MediaFragment {
     return Object.entries(this.#dimensions);
   }
 
-  set(name: string, value: ValidDimension | string | string[]): void {
+  set(name: DimensionName, value: ValidDimension | string | string[]): void {
     if (name === 'track') {
       this.#setTrack(value as TrackDimension[] | string[]);
       return;
@@ -56,7 +56,7 @@ class MediaFragment {
       throw new Error(`${name} is not in supported dimensions ${Object.keys(DIMENSIONS).join(", ")}`);
     }
     if (typeof value === 'string') {
-      value = new constructor(value) as Exclude<ValidDimension, TrackDimension[] | string[]>;
+      value = new constructor(value);
     }
     this.#dimensions[name] = value as Exclude<ValidDimension, TrackDimension[] | string[]>;
   }
@@ -92,7 +92,7 @@ class MediaFragment {
     let str = '';
     let first = true;
     for (let name in this.#dimensions) {
-      let value = this.#dimensions[name];
+      let value = this.#dimensions[name as DimensionName];
       if (! first) str += '&';
       if (first) first = false;
       if (name === 'track') {
@@ -131,7 +131,7 @@ class MediaFragment {
       } catch(URIError) {
         continue;
       }
-      const constructor = DIMENSIONS[name];
+      const constructor = DIMENSIONS[name as DimensionName];
       if (! constructor) {
         console.warn(`${name} is not a name of Media Fragment URI. See https://www.w3.org/TR/media-frags/#processing-name-value-lists`);
         return;
@@ -144,14 +144,14 @@ class MediaFragment {
       }
       const dimension = new constructor(value);
       if (dimension instanceof TrackDimension) {
-        const track = this.#dimensions.track as TrackDimension[];
+        const track = this.#dimensions.track as TrackDimension[] | undefined;
         if (track) {
           track.push(dimension);
         } else {
           this.#dimensions.track = [dimension];
         }
       } else {
-        this.#dimensions[name] = dimension;
+        this.#dimensions[name as DimensionName] = dimension;
       }
     }
   }
@@ -244,7 +244,7 @@ class TemporalDimension {
     return this.#e;
   }
 
-  set e(value: string | number) {
+  set e(value: string | number | undefined) {
     if (value === undefined) {
       this.#e = Infinity;
       return;
@@ -514,16 +514,14 @@ class IdDimension {
   }
 }
 
-interface DimensionConstructor {
-  new(init?: string): Dimension
-}
-
-const DIMENSIONS: Record<string, DimensionConstructor> = {
+const DIMENSIONS = {
   t: TemporalDimension,
   xywh: SpatialDimension,
   track: TrackDimension,
   id: IdDimension
-};
+} as const;
+
+type DimensionName = keyof typeof DIMENSIONS;
 
 function isIterable(value: any): value is TrackDimension[] | string[] {
   return (value != null && value[Symbol.iterator] === 'function');
