@@ -1,0 +1,5 @@
+{
+  "name": "@kitaitimakoto/media-fragment",
+  "version": "0.0.1",
+  "exports": "./index.ts"
+}
