@@ -53,7 +53,7 @@ class MediaFragment {
 
     const constructor = DIMENSIONS[name];
     if (! constructor) {
-      throw new Error('${name} is not in supported dimensions ${Object.keys(DIMENSIONS).join(", ")}');
+      throw new Error(`${name} is not in supported dimensions ${Object.keys(DIMENSIONS).join(", ")}`);
     }
     if (typeof value === 'string') {
       value = new constructor(value) as Exclude<ValidDimension, TrackDimension[] | string[]>;
@@ -232,7 +232,7 @@ class TemporalDimension {
       value = this.#parseTimeString(value);
     }
     if ((! Number.isFinite(value) || Number.isNaN(value))) {
-      throw new TypeError('Start time is not a finite floating-point value: ${value}');
+      throw new TypeError(`Start time is not a finite floating-point value: ${value}`);
       }
     this.#s = value;
   }
@@ -253,7 +253,7 @@ class TemporalDimension {
       value = this.#parseTimeString(value);
     }
     if (Number.isNaN(value)) {
-      throw new TypeError('End time is not a finite floating-point value: ${value}');
+      throw new TypeError(`End time is not a finite floating-point value: ${value}`);
     }
     this.#e = value;
   }
@@ -281,7 +281,7 @@ class TemporalDimension {
   #parseTimeString(string: string): number {
     const comps = (string + '').split(':');
     if (comps.length === 0) {
-      throw new TypeError('${string} is not in valid time format');
+      throw new TypeError(`${string} is not in valid time format`);
     }
     let time = 0;
     for (let i = 0, l = comps.length; i < l; i++) {
