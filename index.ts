@@ -438,7 +438,7 @@ class SpatialDimension {
       const y = Math.min(this.#y, height);
       const w = (x + this.#w > width) ? width - x : this.#w;
       const h = (y + this.#h > height) ? height - y : this.#h;
-      return {x, y, w, h}
+      return {x, y, w, h};
     } else {
       return {
         x: Math.floor(width * Math.min(this.#x, 100) / 100),
