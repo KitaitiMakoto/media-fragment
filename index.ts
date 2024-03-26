@@ -23,7 +23,7 @@ class MediaFragment {
    */
   constructor(init?: string) {
     if (typeof init === 'string') {
-      this._parseString(init);
+      this.#parseString(init);
     }
   }
 
@@ -50,7 +50,7 @@ class MediaFragment {
       if (! isIterable(value)) {
         throw new TypeError('track must be iterable.');
       }
-      this._setTrack(value as TrackDimension[] | string[]);
+      this.#setTrack(value as TrackDimension[] | string[]);
       return;
     }
 
@@ -64,7 +64,7 @@ class MediaFragment {
     this.#dimensions[name] = value as Exclude<ValidDimension, TrackDimension[] | string[]>;
   }
 
-  _setTrack(value: TrackDimension[] | string[]): void {
+  #setTrack(value: TrackDimension[] | string[]): void {
     const tracks: TrackDimension[] = [];
     for (let track of value) {
       if (typeof track === 'string') {
@@ -117,7 +117,7 @@ class MediaFragment {
     return this.get('xywh') as SpatialDimension | null;
   }
 
-  _parseString(string: string): void {
+  #parseString(string: string): void {
     if (string.startsWith('#')) {
       string = string.slice(1);
     }
@@ -205,7 +205,7 @@ class TemporalDimension {
 
   constructor(init?: string) {
     if (typeof init === 'string') {
-      this._parseString(init);
+      this.#parseString(init);
     }
   }
 
@@ -229,7 +229,7 @@ class TemporalDimension {
 
   set s(value: string | number) {
     if (typeof value === 'string') {
-      value = this._parseTimeString(value);
+      value = this.#parseTimeString(value);
     }
     if ((! Number.isFinite(value) || Number.isNaN(value))) {
       throw new TypeError('Start time is not a finite floating-point value: ${value}');
@@ -250,7 +250,7 @@ class TemporalDimension {
       return;
     }
     if (typeof value === 'string') {
-      value = this._parseTimeString(value);
+      value = this.#parseTimeString(value);
     }
     if (Number.isNaN(value)) {
       throw new TypeError('End time is not a finite floating-point value: ${value}');
@@ -263,7 +263,7 @@ class TemporalDimension {
     return `${this.#format}:${this.#s},${e}`;
   }
 
-  _parseString(string: string): void {
+  #parseString(string: string): void {
     const prefix = 'npt:'
     if (string.startsWith(prefix)) {
       this.#format = 'npt';
@@ -278,7 +278,7 @@ class TemporalDimension {
     }
   }
 
-  _parseTimeString(string: string): number {
+  #parseTimeString(string: string): number {
     const comps = (string + '').split(':');
     if (comps.length === 0) {
       throw new TypeError('${string} is not in valid time format');
@@ -343,7 +343,7 @@ class SpatialDimension {
    */
   constructor(value?: string) {
     if (typeof value === 'string') {
-      this._parseString(value);
+      this.#parseString(value);
     }
   }
 
@@ -453,7 +453,7 @@ class SpatialDimension {
     return this.#unit + ':' + [this.#x, this.#y, this.#w, this.#h].join(',');
   }
 
-  _parseString(string: string): void {
+  #parseString(string: string): void {
     let x, y, w, h;
     let _, _u, _xfrac, _yfrac, _wfrac, _hfrac;
     let parser;
@@ -483,7 +483,7 @@ class TrackDimension {
 
   constructor(value?: string) {
     if (typeof value === 'string') {
-      this._parseString(value);
+      this.#parseString(value);
     }
   }
 
@@ -491,7 +491,7 @@ class TrackDimension {
     return this.#value;
   }
 
-  _parseString(string: string): void {
+  #parseString(string: string): void {
     this.#value = string;
   }
 }
@@ -501,7 +501,7 @@ class IdDimension {
 
   constructor(value?: string) {
     if (typeof value === 'string') {
-      this._parseString(value);
+      this.#parseString(value);
     }
   }
 
@@ -509,7 +509,7 @@ class IdDimension {
     return this.#value;
   }
 
-  _parseString(string: string): void {
+  #parseString(string: string): void {
     this.#value = string;
   }
 }
