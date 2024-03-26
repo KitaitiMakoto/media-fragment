@@ -216,7 +216,7 @@ class TemporalDimension {
     return this.#format;
   }
 
-  set format(value: string) {
+  set format(value: TemporalDimensionFormat) {
     // Noop because format is always 'npt';
   }
 
