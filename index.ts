@@ -157,6 +157,8 @@ class MediaFragment {
   }
 }
 
+type TemporalDimensionFormat = 'npt'; // , smtpe or so. Currently npt is supported.
+
 /**
  * Usage
  *
@@ -197,7 +199,7 @@ class MediaFragment {
  * ```
  */
 class TemporalDimension {
-  #format: string = 'npt';
+  #format: TemporalDimensionFormat = 'npt';
   #s: number = 0;
   #e: number = Infinity;
 
@@ -210,7 +212,7 @@ class TemporalDimension {
   /**
    * Format. Always "npt".
    */
-  get format() {
+  get format(): TemporalDimensionFormat {
     return this.#format;
   }
 
@@ -221,7 +223,7 @@ class TemporalDimension {
   /**
    * Start time
    */
-  get s() {
+  get s(): number {
     return this.#s;
   }
 
@@ -238,7 +240,7 @@ class TemporalDimension {
   /**
    * End time
    */
-  get e() {
+  get e(): number {
     return this.#e;
   }
 
