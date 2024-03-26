@@ -1,4 +1,4 @@
 {
-  "mode": "modules",
+  "entryPoints": ["index.ts"],
   "readme": "README.markdown"
 }
