@@ -233,7 +233,7 @@ class TemporalDimension {
     }
     if ((! Number.isFinite(value) || Number.isNaN(value))) {
       throw new TypeError(`Start time is not a finite floating-point value: ${value}`);
-      }
+    }
     this.#s = value;
   }
 
