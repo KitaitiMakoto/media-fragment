@@ -47,9 +47,6 @@ class MediaFragment {
 
   set(name: string, value: ValidDimension | string | string[]): void {
     if (name === 'track') {
-      if (! isIterable(value)) {
-        throw new TypeError('track must be iterable.');
-      }
       this.#setTrack(value as TrackDimension[] | string[]);
       return;
     }
@@ -65,6 +62,9 @@ class MediaFragment {
   }
 
   #setTrack(value: TrackDimension[] | string[]): void {
+    if (! isIterable(value)) {
+      throw new TypeError('track must be iterable.');
+    }
     const tracks: TrackDimension[] = [];
     for (let track of value) {
       if (typeof track === 'string') {
